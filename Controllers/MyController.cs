@@ -53,8 +53,12 @@ namespace ToDoList.Controllers
                     ModelState.AddModelError("Email", "Email already exists. Please use a different one.");
                     return View();
                 }
+                else
+                {
+                    TempData["RegisterSuccess"] = "true";
+                    return View();
+                }
 
-                return RedirectToAction("login");
             }
             catch (Exception ex)
             {

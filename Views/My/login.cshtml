@@ -3,120 +3,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | ToDoList</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
     <style>
-        html, body {
+        :root {
+            --primary: #4facfe;
+            --secondary: #00f2fe;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+            --accent: #4facfe;
+        }
+
+        body, html {
             height: 100%;
             margin: 0;
+            background: linear-gradient(to bottom right, #f2fcfe, #e0f7fa);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        body {
-            display: flex;
-            flex-direction: column;
+        .navbar {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
         }
 
-        main {
-            flex: 1; 
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.6rem;
         }
 
-            footer{
-            background-color: #343a40;
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+
+            .form-control:focus {
+                border-color: var(--accent);
+                box-shadow: 0 0 0 0.2rem rgba(79, 172, 254, 0.25);
+            }
+
+        .btn-custom {
+            background: linear-gradient(to right, var(--secondary), var(--primary) );
+            border: none;
             color: white;
-            padding: 1rem 0;
-            text-align: center;
+            border-radius: 10px;
+            font-weight: 500;
         }
+
+            .btn-custom:hover {
+                opacity: 0.95;
+            }
+
+        .link-info {
+            color: var(--primary) !important;
+        }
+
+        footer {
+            background: #f1f1f1;
+            padding: 1rem 0;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+            footer i {
+                margin: 0 10px;
+                color: #888;
+            }
+
+                footer i:hover {
+                    color: var(--primary);
+                }
     </style>
 </head>
-<body class="bg-light">
+<body>
 
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="#">ToDoList</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-
-                    <li class="nav-item"><a class="nav-link" asp-controller="My" asp-action="Login">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="My" asp-action="register">Register</a></li>
-                </ul>
-            </div>
+            <a class="navbar-brand text-white" href="#">
+                <i class="bi bi-check-circle-fill me-2"></i>ToDoList
+            </a>
         </div>
     </nav>
 
-
-    <main class="container py-5">
-    
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card shadow border-0">
-                    <div class="card-header bg-white">
-                        <h4 class="mb-0">Login Page</h4>
-                    </div>
-                    <div class="card-body">
-                        <form method="post" asp-action="login" asp-controller="My" novalidate> 
-
-                            <input type="hidden" asp-for="Id" readonly />
-                            <div class="mb-3">
-                                <label asp-for="Email" class="form-label">Email : </label>
-                                <input asp-for="Email" id="Email" class="form-control" />
-                                <span asp-validation-for="Email" id="Email_err" class="text-danger"></span>
-                            </div>
-
-                            <div class="mb-3">
-                                <label asp-for="Username" class="form-label">Password : </label>
-                                <input asp-for="Password" type="password" id="Password" class="form-control" />
-                                <span asp-validation-for="Password" id="Password_err" class="text-danger"></span>
-                            </div>
-
-                            <div >
-                            <a asp-action="register" asp-controller="My" class="link-info">Register First</a>
-                            </div>
-                            @if(ViewBag.Message!=null)
-                            {
-                                <br />
-                            <div class="mb-3">
-                                <span class="text-danger">@ViewBag.Message</span>
-                            </div>
-                            }<br />
-                            <div class="d-grid">
-                                <button type="submit" id="login" class="btn btn-success">Login</button>
-                            </div>
-                        </form>
-                    </div>
+    <!-- Main Content -->
+    <main class="d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 130px);">
+        <div class="col-md-5 col-lg-4">
+            <div class="card p-4">
+                <div class="text-center mb-3">
+                    <img src="https://img.freepik.com/premium-vector/male-face-avatar-icon-set-flat-design-social-media-profiles_1281173-3806.jpg?semt=ais_hybrid&w=740"
+                         alt="User Avatar"
+                         class="rounded-circle"
+                         style="width: 80px; height: 80px; object-fit: cover; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);" />
                 </div>
+                <h3 class="text-center mb-4 text-primary">Login</h3>
+                <form method="post" asp-action="login" asp-controller="My" novalidate>
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label">Email</label>
+                        <input asp-for="Email" class="form-control" placeholder="you@example.com" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label">Password</label>
+                        <input asp-for="Password" type="password" class="form-control" placeholder="••••••••" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    @if (ViewBag.Message != null)
+                    {
+                        <div class="mb-3">
+                            <span class="text-danger">@ViewBag.Message</span>
+                        </div>
+                    }
+
+                    <div class="mb-3 text-end">
+                        <a asp-action="register" asp-controller="My" class="link-info">Don't have an account? Register</a>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-custom">Login</button>
+                    </div>
+                </form>
             </div>
         </div>
     </main>
-    <footer class="bg-dark text-light py-3">
-        <div class="container text-center">
-            <small>&copy; @DateTime.Now.Year ToDoList App. All rights reserved.</small><br />
-            <small>&copy; @DateTime.Now.Year ToDoList App. All rights reserved.</small><br />
-            <small>&copy; @DateTime.Now.Year ToDoList App. All rights reserved.</small><br />
-            <small>&copy; @DateTime.Now.Year ToDoList App. All rights reserved.</small>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <div>
+                <i class="bi bi-facebook"></i>
+                <i class="bi bi-twitter"></i>
+                <i class="bi bi-instagram"></i>
+            </div>
+            <div>&copy; @DateTime.Now.Year ToDoList App. All rights reserved.</div>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
-        @if (TempData["LoginSuccess"] != null && TempData["LoginSuccess"].ToString() == "true")
+        @if (TempData["LoginSuccess"]?.ToString() == "true")
         {
             <text>
                     Swal.fire({
-                        title: 'Login Successful!',
-                        text: 'Welcome back to your ToDo List.',
+                        title: 'Welcome Back!',
+                        text: 'Login Successful.',
                         icon: 'success',
-                        confirmButtonColor: '#3085d6',
                         showConfirmButton: false,
                         timer: 2000,
                         willClose: () => {
@@ -126,6 +177,6 @@
             </text>
         }
     </script>
-    
+
 </body>
 </html>
