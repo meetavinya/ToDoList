@@ -110,9 +110,9 @@
                                 <select asp-for="Status" id="Status" class="form-select">
                                     <option value="">-- Select Status --</option>
                                     <option value="Pending">Pending</option>
-                                    <option value="In-Progress">In-Progress</option>
                                     @if (Model != null && Model.Id > 0)
                                     {
+                                    <option value="In-Progress">In-Progress</option>
                                         <option value="Completed">Completed</option>
                                     }
                                 </select>

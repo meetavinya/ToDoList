@@ -106,16 +106,7 @@
                                 <td style ="word-wrap: break-word; max-width: 10px;">@task.Title</td>
                                 <td style="word-wrap: break-word; max-width: 200px;">@task.Description</td>
                                 <td>@task.DueDate.ToString("yyyy-MM-dd")</td>
-                                <td>
-                                    @if (task.Status == "Completed")
-                                    {
-                                        <span>-</span>
-                                    }
-                                    else
-                                    {
-                                    @task.Priority
-                                    }
-                                </td>
+                                <td>@task.Priority</td>
                                 <td>
                                     @if (task.Status == "Completed")
                                     {
@@ -135,8 +126,16 @@
                                     }
                                 </td>
                                 <td>
-                                    <a asp-action="insertdata" asp-controller="My" asp-route-Id="@task.Id" class="btn btn-warning" >Edit</a> |
-                                    <a class="btn btn-danger delete-task" asp-controller="my" asp-action="deletedata" asp-route-Id="@task.Id" >Delete</a>
+									@if (task.Status == "Completed")
+									{
+										
+									}
+									else
+									{
+										
+                                    <a asp-action="insertdata" asp-controller="My" asp-route-Id="@task.Id" class="btn btn-warning" >Edit </a>
+									}
+                                     <a class="btn btn-danger delete-task" asp-controller="my" asp-action="deletedata" asp-route-Id="@task.Id" >Delete</a>
                                 </td>
                             </tr>
                         }
